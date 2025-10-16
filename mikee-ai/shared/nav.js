@@ -1,0 +1,319 @@
+// Shared Navigation Component for all mikee.ai sites
+// Version: 2.1
+// Last Updated: Oct 15, 2025
+// Matches navigation from coaching.mikee.ai + Phone Number
+
+(function() {
+  'use strict';
+  
+  // Navigation configuration - matches coaching.mikee.ai exactly
+  const NAV_CONFIG = {
+    logo: {
+      text: 'Mikee AI',
+      url: 'https://mikee.ai/',
+      icon: '⚡' // Lightning bolt icon
+    },
+    phone: {
+      number: '+1 971 299 7981',
+      text: 'to get AI Help Now',
+      url: 'tel:+19712997981'
+    },
+    links: [
+      { text: 'Coaching', url: 'https://coaching.mikee.ai/' },
+      { text: 'Free Go High Level AI Workflow', url: 'https://sms-ai.mikee.ai/' },
+      { text: 'Blog', url: 'https://blog.mikee.ai/' },
+      { text: 'Free Masterclass', url: 'https://ghl-ai.mikee.ai/' }
+    ],
+    cta: {
+      text: 'Get Custom Quote',
+      url: 'https://30-minute-strategy-session.mikee.ai/'
+    }
+  };
+
+  // Create navigation HTML
+  function createNavHTML() {
+    return `
+      <style>
+        /* Hide all React navigation elements */
+        #root > nav,
+        #root > div > nav,
+        #root nav:not(#mikee-shared-nav),
+        #root > header,
+        #root > div > header {
+          display: none !important;
+        }
+        
+        /* Ensure shared nav stays on top */
+        #mikee-shared-nav {
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          z-index: 9999 !important;
+        }
+        
+        /* Add padding to body */
+        body {
+          padding-top: 80px !important;
+        }
+        
+        /* Phone number styles */
+        .phone-link {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-decoration: none;
+          color: #2563eb;
+          font-weight: 600;
+          transition: color 0.2s;
+        }
+        
+        .phone-link:hover {
+          color: #1d4ed8;
+        }
+        
+        .phone-number {
+          font-size: 1.1rem;
+          letter-spacing: 0.5px;
+        }
+        
+        .phone-text {
+          font-size: 0.75rem;
+          font-weight: 500;
+          color: #374151;
+        }
+        
+        @media (max-width: 768px) {
+          .phone-link {
+            padding: 0.75rem 1rem;
+          }
+        }
+      </style>
+      <nav id="mikee-shared-nav" style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+        background: white;
+        border-bottom: 1px solid #e5e7eb;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+      ">
+        <div style="
+          max-width: 1280px;
+          margin: 0 auto;
+          padding: 1rem 1.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        ">
+          <!-- Logo -->
+          <a href="${NAV_CONFIG.logo.url}" style="
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #111827;
+            text-decoration: none;
+          ">
+            <span style="font-size: 1.5rem;">${NAV_CONFIG.logo.icon}</span>
+            ${NAV_CONFIG.logo.text}
+          </a>
+          
+          <!-- Desktop Navigation -->
+          <div id="desktop-nav" style="
+            display: none;
+            align-items: center;
+            gap: 2rem;
+          ">
+            ${NAV_CONFIG.links.map(link => `
+              <a href="${link.url}" style="
+                color: #374151;
+                text-decoration: none;
+                font-weight: 500;
+                transition: color 0.2s;
+              " onmouseover="this.style.color='#2563eb'" onmouseout="this.style.color='#374151'">
+                ${link.text}
+              </a>
+            `).join('')}
+            
+            <!-- Phone Number -->
+            <a href="${NAV_CONFIG.phone.url}" class="phone-link">
+              <span class="phone-number">${NAV_CONFIG.phone.number}</span>
+              <span class="phone-text">${NAV_CONFIG.phone.text}</span>
+            </a>
+            
+            <a href="${NAV_CONFIG.cta.url}" style="
+              background: #2563eb;
+              color: white;
+              padding: 0.625rem 1.25rem;
+              border-radius: 0.375rem;
+              text-decoration: none;
+              font-weight: 600;
+              transition: background 0.2s;
+            " onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">
+              ${NAV_CONFIG.cta.text}
+            </a>
+          </div>
+          
+          <!-- Mobile Menu Button -->
+          <button id="mobile-menu-btn" style="
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+          " aria-label="Toggle menu">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" style="
+          display: none;
+          background: white;
+          border-top: 1px solid #e5e7eb;
+          padding: 1rem;
+        ">
+          ${NAV_CONFIG.links.map(link => `
+            <a href="${link.url}" style="
+              display: block;
+              padding: 0.75rem 1rem;
+              color: #374151;
+              text-decoration: none;
+              font-weight: 500;
+            ">
+              ${link.text}
+            </a>
+          `).join('')}
+          
+          <!-- Phone Number Mobile -->
+          <a href="${NAV_CONFIG.phone.url}" class="phone-link" style="
+            display: flex;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.375rem;
+            margin: 0.5rem 0;
+          ">
+            <span class="phone-number">${NAV_CONFIG.phone.number}</span>
+            <span class="phone-text">${NAV_CONFIG.phone.text}</span>
+          </a>
+          
+          <a href="${NAV_CONFIG.cta.url}" style="
+            display: block;
+            margin-top: 0.5rem;
+            background: #2563eb;
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+          ">
+            ${NAV_CONFIG.cta.text}
+          </a>
+        </div>
+      </nav>
+    `;
+  }
+
+  // Hide React navigation elements
+  function hideReactNav() {
+    // Wait for React to render, then hide its navigation
+    const observer = new MutationObserver(function(mutations) {
+      const root = document.getElementById('root');
+      if (root) {
+        // Find and hide all nav and header elements inside root
+        const navs = root.querySelectorAll('nav:not(#mikee-shared-nav)');
+        const headers = root.querySelectorAll('header');
+        
+        navs.forEach(nav => {
+          if (nav.id !== 'mikee-shared-nav') {
+            nav.style.display = 'none';
+          }
+        });
+        
+        headers.forEach(header => {
+          header.style.display = 'none';
+        });
+      }
+    });
+    
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+    
+    // Also run immediately
+    setTimeout(() => {
+      const root = document.getElementById('root');
+      if (root) {
+        const navs = root.querySelectorAll('nav:not(#mikee-shared-nav)');
+        const headers = root.querySelectorAll('header');
+        
+        navs.forEach(nav => {
+          if (nav.id !== 'mikee-shared-nav') {
+            nav.style.display = 'none';
+          }
+        });
+        
+        headers.forEach(header => {
+          header.style.display = 'none';
+        });
+      }
+    }, 100);
+  }
+
+  // Initialize navigation
+  function initNav() {
+    // Insert nav at the beginning of body
+    const navHTML = createNavHTML();
+    document.body.insertAdjacentHTML('afterbegin', navHTML);
+    
+    // Hide React navigation
+    hideReactNav();
+    
+    // Handle responsive display
+    function updateNavDisplay() {
+      const desktopNav = document.getElementById('desktop-nav');
+      const mobileBtn = document.getElementById('mobile-menu-btn');
+      
+      if (window.innerWidth >= 768) {
+        desktopNav.style.display = 'flex';
+        mobileBtn.style.display = 'none';
+      } else {
+        desktopNav.style.display = 'none';
+        mobileBtn.style.display = 'block';
+      }
+    }
+    
+    // Mobile menu toggle
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (mobileBtn) {
+      mobileBtn.addEventListener('click', function() {
+        if (mobileMenu.style.display === 'none' || !mobileMenu.style.display) {
+          mobileMenu.style.display = 'block';
+        } else {
+          mobileMenu.style.display = 'none';
+        }
+      });
+    }
+    
+    // Update on resize
+    window.addEventListener('resize', updateNavDisplay);
+    updateNavDisplay();
+  }
+
+  // Wait for DOM to be ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNav);
+  } else {
+    initNav();
+  }
+})();
+

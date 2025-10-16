@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FREE AI Agents Workshop - Central Florida | Mikee AI</title>
+    <meta name="description" content="Free Workshop: Getting Started with AI Agents for Increasing Income & Saving Time in Central Florida">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: #fff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        nav {
+            background: #fff;
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #1f2937;
+        }
+        
+        .logo span {
+            color: #2563eb;
+        }
+        
+        /* Hero Section with Full Screen Background */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.9)), url('tampa-skyline.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 100px 20px;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            line-height: 1.2;
+            color: #111827;
+        }
+        
+        h1 .highlight {
+            color: #2563eb;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #6b7280;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+        
+        .workshop-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-weight: 600;
+        }
+        
+        .free-badge {
+            background: #10b981;
+            color: white;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 18px 45px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+        
+        .cta-button:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+        
+        .cta-button-outline {
+            background: transparent;
+            border: 2px solid #2563eb;
+            color: #2563eb;
+            box-shadow: none;
+        }
+        
+        .cta-button-outline:hover {
+            background: #2563eb;
+            color: white;
+        }
+        
+        /* Stats Section */
+        .stats-bar {
+            background: #f9fafb;
+            padding: 40px 20px;
+            border-top: 1px solid #e5e7eb;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .stat-item span:first-child {
+            font-size: 1.1rem;
+        }
+        
+        .stat-item span:last-child {
+            font-weight: 700;
+            color: #1f2937;
+        }
+        
+        /* Content Sections */
+        .section {
+            padding: 100px 20px;
+        }
+        
+        .section-alt {
+            background: #f9fafb;
+        }
+        
+        .section-bg {
+            background: linear-gradient(rgba(255,255,255,0.97), rgba(255,255,255,0.97)), url('ai-tech-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .section-title {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 800;
+            color: #111827;
+        }
+        
+        .section-title .highlight {
+            color: #2563eb;
+        }
+        
+        .section-description {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #6b7280;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+        
+        /* Module Cards */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .module-card {
+            background: #fff;
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .module-card h3 {
+            color: #2563eb;
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .module-card ul {
+            list-style: none;
+        }
+        
+        .module-card li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #4b5563;
+        }
+        
+        .module-card li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        /* Comparison Section */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .comparison-card {
+            padding: 40px;
+            border-radius: 16px;
+            border: 2px solid;
+        }
+        
+        .comparison-card.negative {
+            background: #fef2f2;
+            border-color: #fecaca;
+        }
+        
+        .comparison-card.positive {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+        }
+        
+        .comparison-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+        }
+        
+        .comparison-card.negative h3 {
+            color: #dc2626;
+        }
+        
+        .comparison-card.positive h3 {
+            color: #16a34a;
+        }
+        
+        .comparison-card ul {
+            list-style: none;
+        }
+        
+        .comparison-card li {
+            padding: 12px 0;
+            font-size: 1.05rem;
+            color: #374151;
+        }
+        
+        /* Registration Section */
+        .registration-section {
+            background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+            color: white;
+            padding: 100px 20px;
+        }
+        
+        .registration-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .registration-section h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .registration-section p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+        
+        .registration-form {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+        
+        .value-stack {
+            text-align: left;
+            margin: 30px 0;
+            padding: 30px;
+            background: #f9fafb;
+            border-radius: 12px;
+        }
+        
+        .value-stack h4 {
+            color: #111827;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .value-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e7eb;
+            color: #4b5563;
+        }
+        
+        .value-item:last-child {
+            border-bottom: none;
+        }
+        
+        .value-total {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .value-total .old-price {
+            text-decoration: line-through;
+            color: #9ca3af;
+            font-size: 1.2rem;
+        }
+        
+        .value-total .new-price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #10b981;
+            margin-top: 10px;
+        }
+        
+        /* Footer */
+        footer {
+            background: #111827;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .modules-grid,
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .workshop-meta {
+                flex-direction: column;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">⚡ Mikee <span>AI</span></div>
+                <a href="#register" class="cta-button" style="padding: 12px 30px; font-size: 1rem;">Register FREE</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badge">🌴 Central Florida Edition - 100% FREE</div>
+            <h1>Getting Started with <span class="highlight">AI Agents</span> for Income & Time Savings</h1>
+            <p class="subtitle">Perfect for busy professionals, entrepreneurs & business owners in Orlando, Tampa & beyond</p>
+            
+            <div class="workshop-meta">
+                <div class="meta-item">
+                    <span>📅</span>
+                    <span id="workshop-dates">Loading...</span>
+                </div>
+                <div class="meta-item">
+                    <span>⏰</span>
+                    <span>10AM EST - 45 Min</span>
+                </div>
+                <div class="meta-item">
+                    <span>💻</span>
+                    <span>Live Online</span>
+                </div>
+                <div class="meta-item free-badge">
+                    <span>💰</span>
+                    <span>100% FREE</span>
+                </div>
+            </div>
+            
+            <div style="margin-top: 50px;">
+                <a href="#register" class="cta-button" style="margin-right: 15px;">Reserve Your FREE Spot</a>
+                <a href="#learn-more" class="cta-button cta-button-outline">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span>👥</span>
+                    <span>100+ Florida Businesses</span>
+                </div>
+                <div class="stat-item">
+                    <span>⏰</span>
+                    <span>10+ Hours Saved/Week</span>
+                </div>
+                <div class="stat-item">
+                    <span>💰</span>
+                    <span>3X More Income</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What You'll Learn -->
+    <section class="section" id="learn-more">
+        <div class="container">
+            <h2 class="section-title">What You'll Learn in This <span class="highlight">FREE 45-Minute</span> Workshop</h2>
+            <p class="section-description">This power-packed session will show you exactly how to use AI agents to increase your income and save time.</p>
+            
+            <div class="modules-grid">
+                <div class="module-card">
+                    <h3>🚀 AI Agents for Income Growth</h3>
+                    <ul>
+                        <li>What AI Agents Are & Why They're Perfect for Florida Businesses</li>
+                        <li>Real Central Florida Success Stories (Orlando, Tampa, Jacksonville)</li>
+                        <li>How to Identify Income Opportunities with AI in Your Industry</li>
+                        <li>Simple Ways to Start Making Money with AI (No Tech Skills Required)</li>
+                        <li>The Fastest Path to Your First $500-$1,000 with AI Agents</li>
+                    </ul>
+                </div>
+                
+                <div class="module-card">
+                    <h3>⏰ AI Agents for Time Savings</h3>
+                    <ul>
+                        <li>Automate Repetitive Tasks That Waste Your Day</li>
+                        <li>AI Tools That Save 10+ Hours Per Week</li>
+                        <li>How to Build Your First AI Agent in Under 30 Minutes</li>
+                        <li>Delegate to AI Instead of Hiring More Staff</li>
+                        <li>Work Less, Earn More: The AI Lifestyle Blueprint</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Background Section with AI Image -->
+    <section class="section section-bg">
+        <div class="container">
+            <h2 class="section-title">The AI Revolution is <span class="highlight">Happening Now</span> in Central Florida</h2>
+            <p class="section-description">Hundreds of local businesses are already using AI agents to grow faster and work smarter.</p>
+            
+            <div class="stats-grid" style="margin-top: 50px;">
+                <div class="module-card" style="text-align: center;">
+                    <h3 style="color: #2563eb; font-size: 3rem; margin-bottom: 10px;">$100B+</h3>
+                    <p style="color: #6b7280;">Companies investing in AI automation annually</p>
+                </div>
+                <div class="module-card" style="text-align: center;">
+                    <h3 style="color: #2563eb; font-size: 3rem; margin-bottom: 10px;">10+ Hours</h3>
+                    <p style="color: #6b7280;">Average time saved per week with AI agents</p>
+                </div>
+                <div class="module-card" style="text-align: center;">
+                    <h3 style="color: #2563eb; font-size: 3rem; margin-bottom: 10px;">500M+</h3>
+                    <p style="color: #6b7280;">Businesses adopting AI solutions worldwide</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">There Are Only <span class="highlight">2 Paths</span> Forward</h2>
+            
+            <div class="comparison-grid">
+                <div class="comparison-card negative">
+                    <h3>PATH 1: Stay Behind</h3>
+                    <ul>
+                        <li>✗ Keep doing everything manually</li>
+                        <li>✗ Work 50-60 hours per week</li>
+                        <li>✗ Watch competitors use AI to grow faster</li>
+                        <li>✗ Miss out on new income opportunities</li>
+                        <li>✗ Struggle to keep up with technology</li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-card positive">
+                    <h3>PATH 2: Embrace AI</h3>
+                    <ul>
+                        <li>✓ Automate repetitive tasks with AI agents</li>
+                        <li>✓ Save 10+ hours per week</li>
+                        <li>✓ Discover new income streams</li>
+                        <li>✓ Work smarter, not harder</li>
+                        <li>✓ Stay ahead of the competition</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section class="registration-section" id="register">
+        <div class="container">
+            <div class="registration-content">
+                <h2>This Workshop is Completely FREE</h2>
+                <p>No credit card required • Limited to 100 attendees</p>
+                
+                <div class="registration-form">
+                    <div class="value-stack">
+                        <h4>What You're Getting (Value: $1,485)</h4>
+                        <div class="value-item">
+                            <span>45-Minute LIVE AI Agents Workshop</span>
+                            <span>$497</span>
+                        </div>
+                        <div class="value-item">
+                            <span>AI Income Opportunities Guide</span>
+                            <span>$297</span>
+                        </div>
+                        <div class="value-item">
+                            <span>Time-Saving AI Tools Checklist</span>
+                            <span>$197</span>
+                        </div>
+                        <div class="value-item">
+                            <span>Central Florida Business Case Studies</span>
+                            <span>$297</span>
+                        </div>
+                        <div class="value-item">
+                            <span>Q&A with Mikee</span>
+                            <span>$197</span>
+                        </div>
+                    </div>
+                    
+                    <div class="value-total">
+                        <div class="old-price">Total Value: $1,485</div>
+                        <div class="new-price">FREE</div>
+                    </div>
+                    
+                    <form id="registration-form">
+                        <div class="form-group">
+                            <label>Your Name *</label>
+                            <input type="text" placeholder="John Smith" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Your Email *</label>
+                            <input type="email" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number (Optional)</label>
+                            <input type="tel" placeholder="(407) 555-1234">
+                        </div>
+                        <div class="form-group">
+                            <label>Your Website (Optional)</label>
+                            <input type="url" placeholder="https://yourwebsite.com">
+                        </div>
+                        <button type="submit" class="cta-button" style="width: 100%; margin-top: 20px;">RESERVE MY FREE SPOT NOW</button>
+                    </form>
+                    
+                    <p style="margin-top: 20px; font-size: 0.9rem; color: #6b7280;">
+                        🌴 Proudly serving Orlando, Tampa, Jacksonville & all of Central Florida
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2025 Mikee.ai - All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script>
+        // Auto-update workshop date to next Friday
+        function getNextFriday() {
+            const today = new Date();
+            const currentDay = today.getDay();
+            let daysUntilFriday = (5 - currentDay + 7) % 7;
+            if (daysUntilFriday === 0) daysUntilFriday = 7;
+            const nextFriday = new Date(today);
+            nextFriday.setDate(today.getDate() + daysUntilFriday);
+            return nextFriday;
+        }
+        
+        function formatDate(date) {
+            const months = ['January', 'February', 'March', 'April', 'May', 'June',
+                          'July', 'August', 'September', 'October', 'November', 'December'];
+            return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+        }
+        
+        window.addEventListener('DOMContentLoaded', function() {
+            const nextFriday = getNextFriday();
+            document.getElementById('workshop-dates').textContent = formatDate(nextFriday);
+        });
+        
+        document.getElementById('registration-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for registering! You will receive a confirmation email with the workshop link shortly.');
+            this.reset();
+        });
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agents Income Workshop - Mikee.ai</title>
+    <meta name="description" content="Build & Deploy Your First AI Agent For Income Generation in 30 Days">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- PayPal SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AeSwfJPDO2G4nNLWjRtWMjF_1AmI434E2zXm73I9EkkjFSPd2jM74PYALUpTTvv2obHeiSBylh9nCiJd&currency=USD&intent=capture"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #fff;
+            background: #0a0a0a;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1a0033 0%, #4a0080 50%, #7b2cbf 100%);
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        h1 span {
+            color: #10b981;
+        }
+        
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        
+        .workshop-details {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.15);
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 22px 55px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cta-button:hover {
+            background: #059669;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4);
+        }
+        
+        /* PayPal Button Container */
+        #paypal-button-container {
+            max-width: 400px;
+            margin: 30px auto;
+        }
+        
+        /* What You'll Discover Section */
+        .discover-section {
+            background: #111;
+            padding: 100px 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            font-weight: 800;
+        }
+        
+        .section-title span {
+            color: #a855f7;
+        }
+        
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .module-card {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border: 2px solid #a855f7;
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.4s;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(168, 85, 247, 0.4);
+            border-color: #10b981;
+        }
+        
+        .module-card h3 {
+            color: #10b981;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .module-card ul {
+            list-style: none;
+        }
+        
+        .module-card li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.05rem;
+        }
+        
+        .module-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, #4a0080 0%, #7b2cbf 100%);
+            padding: 100px 20px;
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            margin-top: 60px;
+        }
+        
+        .stat-card {
+            background: rgba(255,255,255,0.12);
+            padding: 50px 30px;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.18);
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #10b981;
+            margin-bottom: 15px;
+        }
+        
+        .stat-card p {
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+        
+        /* Two Paths Section */
+        .paths-section {
+            background: #0a0a0a;
+            padding: 100px 20px;
+        }
+        
+        .paths-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 50px;
+            margin-top: 60px;
+        }
+        
+        .path-card {
+            background: #1a1a1a;
+            border-radius: 20px;
+            padding: 50px;
+            border: 3px solid transparent;
+            transition: all 0.4s;
+        }
+        
+        .path-card.wrong {
+            border-color: #ef4444;
+        }
+        
+        .path-card.right {
+            border-color: #10b981;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(168, 85, 247, 0.12) 100%);
+        }
+        
+        .path-card h3 {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            font-weight: 800;
+        }
+        
+        .path-card.wrong h3 {
+            color: #ef4444;
+        }
+        
+        .path-card.right h3 {
+            color: #10b981;
+        }
+        
+        .path-card ul {
+            list-style: none;
+        }
+        
+        .path-card li {
+            padding: 15px 0;
+            font-size: 1.1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Pricing Section */
+        .pricing-section {
+            background: #111;
+            padding: 100px 20px;
+            text-align: center;
+        }
+        
+        .pricing-card {
+            max-width: 700px;
+            margin: 60px auto;
+            background: linear-gradient(135deg, #4a0080 0%, #7b2cbf 100%);
+            border-radius: 25px;
+            padding: 60px;
+            box-shadow: 0 20px 60px rgba(168, 85, 247, 0.3);
+        }
+        
+        .value-items {
+            text-align: left;
+            margin: 40px 0;
+        }
+        
+        .value-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.25);
+            font-size: 1.1rem;
+        }
+        
+        .value-item span:last-child {
+            color: #10b981;
+            font-weight: 700;
+        }
+        
+        .price-tag {
+            font-size: 5rem;
+            font-weight: 900;
+            color: #10b981;
+            margin: 40px 0;
+            text-shadow: 0 5px 20px rgba(16, 185, 129, 0.5);
+        }
+        
+        /* About Mikee Section */
+        .about-section {
+            background: #0a0a0a;
+            padding: 100px 20px;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 80px;
+            align-items: center;
+            margin-top: 60px;
+        }
+        
+        .about-image {
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(168, 85, 247, 0.3);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .track-record {
+            list-style: none;
+        }
+        
+        .track-record li {
+            padding: 18px 0;
+            padding-left: 35px;
+            position: relative;
+            font-size: 1.15rem;
+        }
+        
+        .track-record li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+            font-size: 1.4rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #000;
+            padding: 50px 20px;
+            text-align: center;
+            font-size: 0.95rem;
+            opacity: 0.75;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .paths-grid, .modules-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .workshop-details {
+                flex-direction: column;
+            }
+            
+            .pricing-card {
+                padding: 40px 30px;
+            }
+            
+            .price-tag {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script src="https://mikee.ai/shared/nav.js?v=5"></script>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Build & Deploy Your First <span>AI Agent</span> For Income Generation in 30 Days</h1>
+            <p>Without Coding Experience, Technical Background, Or Being A "Tech Expert"</p>
+            
+            <div class="workshop-details">
+                <div class="detail-item">
+                    <span>📅</span>
+                    <span id="workshop-dates">October 18-19, 2025</span>
+                </div>
+                <div class="detail-item">
+                    <span>⏰</span>
+                    <span>10AM EST - 45 Minutes</span>
+                </div>
+                <div class="detail-item">
+                    <span>💻</span>
+                    <span>LIVE ONLINE</span>
+                </div>
+            </div>
+            
+            <p style="margin-top: 30px; font-size: 1.2rem; background: rgba(16, 185, 129, 0.15); padding: 20px; border-radius: 12px; border: 2px solid #10b981;">
+                🎁 <strong>BONUS:</strong> All enrollees are automatically entered to win an AI Mini PC worth $997!
+            </p>
+            
+            <a href="#pricing" class="cta-button">Secure Your Seat Now</a>
+        </div>
+    </section>
+
+    <!-- What You'll Discover -->
+    <section class="discover-section">
+        <div class="container">
+            <h2 class="section-title">What You'll Discover In This <span>45-Minute LIVE</span> Workshop</h2>
+            
+            <p style="text-align: center; font-size: 1.3rem; margin-bottom: 50px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                <strong style="color: #10b981;">⚡ Show up on time!</strong> This power-packed 45-minute session is designed to give you the exact blueprint to start generating income with AI agents.
+            </p>
+            
+            <div class="modules-grid">
+                <div class="module-card">
+                    <h3>The AI Agent Income Blueprint</h3>
+                    <ul>
+                        <li>The #1 AI Agent Opportunity Right Now (That Nobody's Talking About)</li>
+                        <li>How to Identify High-Paying AI Agent Use Cases in 5 Minutes</li>
+                        <li>The No-Code Method to Build Your First AI Agent</li>
+                        <li>Getting Your First $500-$5,000 Client in 30 Days</li>
+                        <li>The Simple Deployment Strategy That Works</li>
+                        <li>Scaling to $10K/Month Without Technical Skills</li>
+                    </ul>
+                </div>
+                
+                <div class="module-card">
+                    <h3>🎁 BONUS: AI Mini PC Giveaway</h3>
+                    <ul>
+                        <li><strong>Prize:</strong> AI Mini PC Worth $997</li>
+                        <li><strong>Entry:</strong> Automatic when you enroll</li>
+                        <li><strong>Winner Announced:</strong> At the end of the workshop</li>
+                        <li><strong>Perfect For:</strong> Running your AI agents 24/7</li>
+                        <li><strong>No Purchase Necessary:</strong> Just show up!</li>
+                        <li><strong>One Lucky Winner</strong> will walk away with cutting-edge AI hardware</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <h2 class="section-title">The <span>AI Agent Revolution</span> Is Happening Right Now</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">$100B+</div>
+                    <p>Companies spending on AI automation solutions annually</p>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number">500M+</div>
+                    <p>Businesses investing in AI agents in the last year</p>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number">6-7 Figures</div>
+                    <p>Entrepreneurs making by deploying AI agents</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Two Paths -->
+    <section class="paths-section">
+        <div class="container">
+            <h2 class="section-title">There Are <span>Only 2 Ways</span> To Make Money In The AI Economy</h2>
+            
+            <div class="paths-grid">
+                <div class="path-card wrong">
+                    <h3>PATH 1: Be A Slave To Manual Work</h3>
+                    <ul>
+                        <li>❌ Do repetitive tasks manually</li>
+                        <li>❌ Work 8-12 hours daily to stay afloat</li>
+                        <li>❌ Hope clients keep coming</li>
+                        <li>❌ Get paid hourly for your time</li>
+                        <li>❌ Make limited income trading time for money</li>
+                    </ul>
+                </div>
+                
+                <div class="path-card right">
+                    <h3>PATH 2: Be A Smart AI Entrepreneur</h3>
+                    <ul>
+                        <li>✅ Build AI agents that solve specific business problems</li>
+                        <li>✅ Deploy automated AI solutions with recurring revenue</li>
+                        <li>✅ Get paid $500-$5,000 per client per month</li>
+                        <li>✅ Build AI systems that generate income 24/7</li>
+                        <li>✅ Scale without trading time for money</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing-section" id="pricing">
+        <div class="container">
+            <h2 class="section-title">What You're Getting</h2>
+            
+            <div class="pricing-card">
+                <div class="value-items">
+                    <div class="value-item">
+                        <span>45-Minute LIVE AI Agent Workshop</span>
+                        <span>$497</span>
+                    </div>
+                    <div class="value-item">
+                        <span>AI Agent Income Blueprint</span>
+                        <span>$997</span>
+                    </div>
+                    <div class="value-item">
+                        <span>No-Code AI Agent Building Method</span>
+                        <span>$697</span>
+                    </div>
+                    <div class="value-item">
+                        <span>Client Acquisition Strategy</span>
+                        <span>$797</span>
+                    </div>
+                    <div class="value-item">
+                        <span>Deployment & Scaling Playbook</span>
+                        <span>$497</span>
+                    </div>
+                    <div class="value-item" style="border-top: 2px solid #10b981; padding-top: 20px; margin-top: 10px;">
+                        <span><strong>🎁 BONUS: AI Mini PC Giveaway Entry</strong></span>
+                        <span><strong>$997</strong></span>
+                    </div>
+                </div>
+                
+                <p style="text-decoration: line-through; opacity: 0.7; font-size: 1.2rem;">Total Value: $4,482</p>
+                <div class="price-tag">$47</div>
+                <p style="margin-bottom: 40px; font-size: 1.1rem;">One-time payment • Only 50 spots available<br/><strong style="color: #10b981;">⚡ Show up on time - Workshop is only 45 minutes!</strong></p>
+                
+                <!-- PayPal Button Container -->
+                <div id="paypal-button-container"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Mikee -->
+    <section class="about-section">
+        <div class="container">
+            <h2 class="section-title">Meet Your Host: <span>Mikee</span></h2>
+            
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="mikee-profile.jpeg" alt="Mikee - AI Agent Expert">
+                </div>
+                
+                <div>
+                    <p style="font-size: 1.3rem; margin-bottom: 35px; line-height: 1.7;">
+                        Mikee didn't start with advantages. But everything changed when he discovered 
+                        the power of AI agents for generating passive income.
+                    </p>
+                    
+                    <h3 style="color: #10b981; margin-bottom: 25px; font-size: 1.8rem;">Mikee's Track Record:</h3>
+                    <ul class="track-record">
+                        <li>Started learning AI and automation in 2023</li>
+                        <li>Built first AI agent that generated $10K in first month</li>
+                        <li>First AI agent client: $5,000 monthly recurring revenue</li>
+                        <li>Achieved complete time and location freedom</li>
+                    </ul>
+                    
+                    <p style="margin-top: 35px; font-style: italic; opacity: 0.9; font-size: 1.1rem; line-height: 1.7;">
+                        Mikee isn't an out-of-touch guru who made money years ago using outdated strategies. 
+                        He's an entrepreneur who figured out the exact system that works right now, in today's 
+                        AI economy, and he's teaching it while it's still working.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="stats-section">
+        <div class="container">
+            <h2 class="section-title">Two Choices. <span>Your Future</span> Depends On What You Decide Today.</h2>
+            
+            <div style="max-width: 900px; margin: 60px auto; text-align: left;">
+                <div style="background: rgba(239, 68, 68, 0.12); padding: 40px; border-radius: 20px; margin-bottom: 40px; border-left: 5px solid #ef4444;">
+                    <h3 style="color: #ef4444; margin-bottom: 20px; font-size: 1.8rem;">CHOICE A: Stay Where You Are</h3>
+                    <ul style="list-style: none;">
+                        <li style="padding: 12px 0; font-size: 1.1rem;">❌ Keep trading your time for someone else's dreams</li>
+                        <li style="padding: 12px 0; font-size: 1.1rem;">❌ Watch others create the freedom you wish you had</li>
+                        <li style="padding: 12px 0; font-size: 1.1rem;">❌ Wonder "what if" you had just tried something different</li>
+                        <li style="padding: 12px 0; font-size: 1.1rem;">❌ Look back in 5 years wishing you'd started sooner</li>
+                    </ul>
+                </div>
+                
+                <div style="background: rgba(16, 185, 129, 0.12); padding: 40px; border-radius: 20px; border-left: 5px solid #10b981;">
+                    <h3 style="color: #10b981; margin-bottom: 20px; font-size: 1.8rem;">CHOICE B: Claim Your Seat Today</h3>
+                    <ul style="list-style: none;">
+                        <li style="padding: 12px 0; font-size: 1.1rem;">✅ Learn the AI agent strategy that's creating real income</li>
+                        <li style="padding: 12px 0; font-size: 1.1rem;">✅ Get the exact blueprint to go from zero to $10K/month</li>
+                        <li style="padding: 12px 0; font-size: 1.1rem;">✅ Join action-takers building AI businesses on their terms</li>
+                        <li style="padding: 12px 0; font-size: 1.1rem;">✅ Finally create income that works for you 24/7</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 60px;">
+                <p style="font-size: 1.5rem; margin-bottom: 40px; line-height: 1.6;">
+                    The choice is yours. But remember: <strong>not choosing is still a choice.</strong>
+                </p>
+                <a href="#pricing" class="cta-button">YES! SAVE MY SEAT</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p style="margin-bottom: 25px; line-height: 1.7;">
+                <strong>Income Disclaimer:</strong> Any financial numbers referenced here are estimates, projections, 
+                or past results and should not be considered exact, actual, or as a promise of potential earnings. 
+                All numbers are illustrative only. Your results will depend on many factors, including your background, 
+                experience, and work ethic. There are NO guarantees of success or income.
+            </p>
+            <p>© 2025 Mikee.ai - All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script>
+        // Auto-update workshop date to next Friday
+        function getNextFriday() {
+            const today = new Date();
+            const currentDay = today.getDay(); // 0 = Sunday, 5 = Friday
+            
+            // Calculate days until next Friday
+            let daysUntilFriday = (5 - currentDay + 7) % 7;
+            if (daysUntilFriday === 0) {
+                // If today is Friday, get next Friday
+                daysUntilFriday = 7;
+            }
+            
+            const nextFriday = new Date(today);
+            nextFriday.setDate(today.getDate() + daysUntilFriday);
+            
+            return nextFriday;
+        }
+        
+        function formatDate(date) {
+            const months = ['January', 'February', 'March', 'April', 'May', 'June',
+                          'July', 'August', 'September', 'October', 'November', 'December'];
+            
+            const month = months[date.getMonth()];
+            const day = date.getDate();
+            const year = date.getFullYear();
+            
+            return `${month} ${day}, ${year}`;
+        }
+        
+        // Update date when page loads
+        window.addEventListener('DOMContentLoaded', function() {
+            const nextFriday = getNextFriday();
+            const formattedDate = formatDate(nextFriday);
+            document.getElementById('workshop-dates').textContent = formattedDate;
+        });
+        
+        // PayPal Smart Payment Buttons
+        paypal.Buttons({
+            style: {
+                layout: 'vertical',
+                color: 'gold',
+                shape: 'rect',
+                label: 'paypal',
+                height: 55
+            },
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        description: 'AI Agents Income Workshop - 2 Day Live Event',
+                        amount: {
+                            currency_code: 'USD',
+                            value: '47.00'
+                        },
+                        payee: {
+                            email_address: 'mikee@mikee.ai'
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(orderData) {
+                    // Successful capture
+                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                    
+                    // Show success message
+                    alert('Payment successful! Thank you for registering for the workshop. Check your email for confirmation and workshop details.');
+                    
+                    // You can redirect to a thank you page here
+                    // window.location.href = '/thank-you.html';
+                });
+            },
+            onError: function(err) {
+                console.error('PayPal error:', err);
+                alert('An error occurred with your payment. Please try again or contact support.');
+            }
+        }).render('#paypal-button-container');
+    </script>
+</body>
+</html>
