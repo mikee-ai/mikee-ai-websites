@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Outreach Hub</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header h1 { color: #333; margin-bottom: 5px; }
+        .header p { color: #666; }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .tab {
+            padding: 10px 20px;
+            background: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .tab.active { background: #667eea; color: white; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .card h2 {
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        .form-group { margin-bottom: 15px; }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .btn-primary { background: #667eea; color: white; }
+        .btn-success { background: #48bb78; color: white; }
+        .message {
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        .message.success { background: #c6f6d5; color: #2f855a; }
+        .message.error { background: #fed7d7; color: #c53030; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Outreach Hub</h1>
+            <p>AI-powered calling with ElevenLabs & Email campaigns with Instantly.ai</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('calling')">📞 Batch Calling</button>
+            <button class="tab" onclick="switchTab('email')">📧 Email Campaigns</button>
+            <button class="tab" onclick="switchTab('sync')">🔄 Lead Sync</button>
+        </div>
+
+        <div id="calling-tab" class="tab-content active">
+            <div class="card">
+                <h2>Create Calling Campaign</h2>
+                <div id="calling-message" class="message"></div>
+                <form id="calling-form" onsubmit="createCallingCampaign(event)">
+                    <div class="form-group">
+                        <label>Campaign Name</label>
+                        <input type="text" id="campaign-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>ElevenLabs Agent ID</label>
+                        <input type="text" id="agent-id" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Numbers (one per line)</label>
+                        <textarea id="phone-numbers" rows="5" placeholder="+1234567890&#10;+0987654321"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">🚀 Launch Campaign</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="email-tab" class="tab-content">
+            <div class="card">
+                <h2>Create Email Campaign</h2>
+                <div id="email-message" class="message"></div>
+                <form id="email-form" onsubmit="createEmailCampaign(event)">
+                    <div class="form-group">
+                        <label>Campaign Name</label>
+                        <input type="text" id="email-campaign-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Subject</label>
+                        <input type="text" id="email-subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Body</label>
+                        <textarea id="email-body" rows="6" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">📧 Create Campaign</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="sync-tab" class="tab-content">
+            <div class="card">
+                <h2>Lead Synchronization</h2>
+                <div id="sync-message" class="message"></div>
+                <button class="btn btn-primary" onclick="syncLeads('to-instantly')">📤 Sync to Instantly.ai</button>
+                <button class="btn btn-success" onclick="syncLeads('from-instantly')">📥 Sync from Instantly.ai</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = window.location.origin;
+        const TWENTY_API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlYjk4NTlkOS03MTU5LTQ3ZDItOTI1Ni02MzNiZDA4ZTkyNWQiLCJ0eXBlIjoiQVBJX0tFWSIsIndvcmtzcGFjZUlkIjoiZWI5ODU5ZDktNzE1OS00N2QyLTkyNTYtNjMzYmQwOGU5MjVkIiwiaWF0IjoxNzYwNTc5Nzg2LCJleHAiOjQ5MTQxNzk3ODUsImp0aSI6ImY3NzdiNGYwLTAyZDgtNDFmMi05N2QwLTYxMzFlNDM1YWFjMyJ9.08dTil5i_-sV1pi7CFs4q6mjK_MaJqynL5XHeL8X0xk';
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tab + '-tab').classList.add('active');
+        }
+
+        function showMessage(type, message, text) {
+            const msgEl = document.getElementById(type + '-message');
+            msgEl.textContent = text;
+            msgEl.className = 'message ' + message;
+            msgEl.style.display = 'block';
+            setTimeout(() => msgEl.style.display = 'none', 5000);
+        }
+
+        async function createCallingCampaign(e) {
+            e.preventDefault();
+            const data = {
+                name: document.getElementById('campaign-name').value,
+                agent_id: document.getElementById('agent-id').value,
+                phone_numbers: document.getElementById('phone-numbers').value.split('\n').filter(p => p.trim())
+            };
+            
+            showMessage('calling', 'success', 'Campaign created! (Demo mode - integrate with ElevenLabs API)');
+            e.target.reset();
+        }
+
+        async function createEmailCampaign(e) {
+            e.preventDefault();
+            const data = {
+                name: document.getElementById('email-campaign-name').value,
+                subject: document.getElementById('email-subject').value,
+                body: document.getElementById('email-body').value
+            };
+            
+            showMessage('email', 'success', 'Email campaign created! (Demo mode - integrate with Instantly.ai API)');
+            e.target.reset();
+        }
+
+        async function syncLeads(direction) {
+            showMessage('sync', 'success', `Syncing leads ${direction}... (Demo mode)`);
+        }
+    </script>
+</body>
+</html>
